@@ -1,3 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    background: #f4f6fb;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  select, input, textarea, button { font-family: inherit; }
+}
+
+@layer components {
+  .app-bg {
+    background:
+      radial-gradient(1200px 500px at 100% -10%, rgba(16, 185, 129, 0.08), transparent 60%),
+      radial-gradient(900px 400px at -10% 110%, rgba(99, 102, 241, 0.06), transparent 60%),
+      #f4f6fb;
+  }
+  .card {
+    @apply bg-white rounded-2xl border border-slate-200/70 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_4px_16px_-6px_rgba(15,23,42,0.06)];
+  }
+  .input {
+    @apply w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-base sm:text-sm text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10;
+  }
+  .label {
+    @apply block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-gradient-to-b from-emerald-500 to-emerald-600 text-white font-semibold px-4 py-2.5 rounded-xl text-sm shadow-[0_6px_16px_-6px_rgba(16,185,129,0.7)] hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-600 font-semibold px-3.5 py-2.5 rounded-xl text-sm hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300 active:scale-[0.98] transition whitespace-nowrap;
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: padding-box; border: 2px solid transparent; }
+
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, .45); } 100% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); } }
+.pulse-ring { animation: pulse-ring 1.6s ease-out infinite; }
+
+/* Zero-lag DOM-driven Header & FAB Collapse */
+.hdr-top-wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows 0.18s ease-out, opacity 0.18s ease-out;
+  will-change: grid-template-rows, opacity;
+}
+.hdr-collapsed .hdr-top-wrap {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+@media (min-width: 768px) {
+  .hdr-top-wrap, .hdr-collapsed .hdr-top-wrap {
+    grid-template-rows: 1fr !important;
+    opacity: 1 !important;
+  }
+}
+
+.hdr-flex-gap {
+  gap: 1rem;
+  transition: gap 0.18s ease-out;
+}
+.hdr-collapsed .hdr-flex-gap {
+  gap: 0px;
+}
+@media (min-width: 768px) {
+  .hdr-flex-gap, .hdr-collapsed .hdr-flex-gap {
+    gap: 1rem !important;
+  }
+}
+
+.fab-install {
+  bottom: -6rem;
+  opacity: 0;
+  transition: bottom 0.2s ease-out, opacity 0.2s ease-out;
+}
+.hdr-collapsed .fab-install {
+  bottom: 1.5rem;
+  opacity: 1;
+}
